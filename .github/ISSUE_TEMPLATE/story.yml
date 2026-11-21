@@ -1,0 +1,33 @@
+name: User Story
+description: Propose a new feature, capability, or user story for DocPulse
+title: "feat: "
+labels: ["story", "enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for submitting a user story. DocPulse follows Spec-Driven Development; all features must align with approved design specifications in `/docs/designs`.
+  - type: textarea
+    id: user-story
+    attributes:
+      label: User Story
+      description: In the format: As a [persona], I want [capability] so that [benefit].
+      placeholder: "As a feature engineer, I want DocPulse to validate my parameter table against the AST..."
+    validations:
+      required: true
+  - type: input
+    id: design-spec
+    attributes:
+      label: Linked Design Document
+      description: Path or reference to the approved design specification in `/docs/designs/`.
+      placeholder: "/docs/designs/01-problem-statement.md"
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Specific, testable criteria for considering this story complete.
+      placeholder: "- [ ] Unit tests pass with >= 90% coverage\n- [ ] Idempotency verified\n- [ ] Worklog entry added"
+    validations:
+      required: true

@@ -1,0 +1,32 @@
+name: Technical Spike
+description: Time-boxed technical exploration or feasibility spike
+title: "spike: "
+labels: ["spike", "research"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for time-boxed research spikes exploring architecture, performance, or library feasibility.
+  - type: textarea
+    id: objective
+    attributes:
+      label: Spike Objective
+      description: What specific technical question or unknown does this spike resolve?
+      placeholder: "Investigate Tree-sitter WASM packaging via @vercel/ncc on ubuntu-latest runners..."
+    validations:
+      required: true
+  - type: input
+    id: timebox
+    attributes:
+      label: Timebox
+      description: Duration allocated for this exploration (e.g., 2 days, 1 week).
+      placeholder: "2 days"
+    validations:
+      required: true
+  - type: textarea
+    id: decision-criteria
+    attributes:
+      label: Success / Decision Criteria
+      description: What concrete outcome will decide whether this technical path is adopted or rejected?
+    validations:
+      required: true

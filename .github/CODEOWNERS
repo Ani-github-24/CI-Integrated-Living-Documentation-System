@@ -1,0 +1,18 @@
+# DocPulse Code Ownership
+# Rules: 3-Person University Capstone Team
+
+# Core Static Analysis & AST/Mermaid Engine Lead (Student 1)
+/packages/core/             @student1-analyzer
+
+# Action Runtime & Idempotent Reconciler Lead (Student 2)
+/packages/reconciler/       @student2-action
+/action/                    @student2-action
+/.github/workflows/         @student2-action
+
+# Observability Dashboard, Metrics & Benchmarks Lead (Student 3)
+/dashboard/                 @student3-eval
+/benchmarks/                @student3-eval
+/docs/adr/                  @student3-eval
+
+# Global Repository Administration
+*                           @Ani-github-24

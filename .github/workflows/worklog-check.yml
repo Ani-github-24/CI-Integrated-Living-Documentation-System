@@ -1,0 +1,50 @@
+name: Worklog & Index Verification
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  verify-worklog:
+    name: Verify Worklog Entry & Index Synchronization
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check for New Worklog Entry in PR
+        id: check-worklog
+        run: |
+          echo "Comparing changes against origin/${{ github.base_ref }}..."
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+          
+          # Match files in docs/worklog/ ending with .md (excluding docs/worklog/README.md)
+          WORKLOG_ENTRIES=$(echo "$CHANGED_FILES" | grep -E '^docs/worklog/.*\.md$' | grep -v 'docs/worklog/README.md' || true)
+          
+          if [ -z "$WORKLOG_ENTRIES" ]; then
+            echo "::error::This pull request does not contain a new worklog entry in /docs/worklog/."
+            echo "Every task and PR must include an immutable worklog entry: /docs/worklog/<timestamp>-<handle>-<slug>.md"
+            exit 1
+          fi
+          
+          echo "Found worklog entry in PR diff:"
+          echo "$WORKLOG_ENTRIES"
+
+      - name: Verify PROJECT_LOG.md is Synchronized
+        run: |
+          echo "Verifying PROJECT_LOG.md against worklog entries..."
+          node scripts/build-log-index.mjs --check
